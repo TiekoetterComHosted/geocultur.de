@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<!--
+	Verti by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Home – geocultur.de</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="shortcut icon" type="image/x-icon" href="https://geoculturde-cdn.tiekoetter.cloud/favicon.ico">
+		<link rel="stylesheet" href="https://geoculturde-cdn.tiekoetter.cloud/assets/css/main.css" />
+	</head>
+	<body class="is-preload homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<header id="header" class="container">
+
+						<!-- Logo -->
+							<a href="#index" onclick="loadPage('index'); changetitle('home')" class="image/logo"><img src="https://geoculturde-cdn.tiekoetter.cloud/images/logo.png" alt="" style= "width:20rem ; height:auto"/></a>
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current" id="index"><a href="#index" onclick="loadPage('index'); currentclass(this); changetitle('home');">Home</a></li>
+									<li id="aktuelles"><a href="#aktuelles" onclick="loadPage('aktuelles'); currentclass(this); changetitle('aktuelles');">Aktuelles</a></li>
+									<li id="download"><a href="#download" onclick="loadPage('download'); currentclass(this); changetitle('download');" style="text-decoration: underline;">Programm</a></li>
+									  <!--  <li id="reisen">
+									     <a>Reisen</a>
+										   <ul>
+											<li><a href="#reisen-aktuell" onclick="loadPage('reisen-aktuell'); currentclassreisen(this); changetitle('aktuelle Reisen');">Reisen 2020</a></li>
+											<li><a href="#reisen-zukunft" onclick="loadPage('reisen-zukunft'); currentclassreisen(this); changetitle('zukünftige Reisen');">Reisen 2021</a></li>
+										</ul>
+									</li> -->
+									<li id="impressum"><a href="#impressum" onclick="loadPage('impressum'); currentclass(this); changetitle('impressum');">Impressum</a></li>
+								</ul>
+							</nav>
+
+					</header>
+				</div>
+
+			<!-- Banner -->
+           <div id="load"></div>
+		   			<!-- Footer -->
+				<div id="footer-wrapper">
+					<footer id="footer" class="container">
+						<div class="row">
+							<div class="col-3 col-6-medium col-12-small" style="margin-left: auto; margin-right: auto; text-align:center;">
+		   								<!-- Contact -->
+									<section class="widget contact last">
+										<h3 style="color:#ff6600;">Kontakt</h3>
+										<ul style="padding-left:14px;">
+											<li><a href="https://wa.me/491755974747" class="fab fa-whatsapp"><span class="label"></span></a></li>
+											<li><a href="mailto:geocultur@web.de" class="fas fa-at"><span class="label"></span></a></li>
+											<li><a href="tel:+491755974747" class="fas fa-phone"><span class="label"></span></a></li>
+										</ul>
+										<p style="font-size: 18px; font-weight: bold;">Kösliner Straße 2<br />
+										33605 Bielefeld<br />
+										Telefon: +49 175 5974747<br />
+										E-Mail: geocultur@web.de</p>
+									</section>
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div id="copyright">
+										<span style="color:#696969;"><span style="font-weight: bold;">Datenschutz und Reisebedingungen:</span><br/>
+Es gelten die diesbezüglichen Ausführungen meiner Partner Bröskamp Touristik International/Harsewinkel, SRS Dieter Schetat/Berlin sowie Academia Baltica Akademiezentrum Sankelmark/Oeversee.<br/>Bröskamp Touristik International: Tel. 05247-923126 (Manfred Höffner), <a href="m.hoeffner@broeskamp-online.de">m.hoeffner@broeskamp-online.de</a> / SRS Schetat: Tel. 030 89510003, <a href="mailto:info@srs-studienreisen.de">info@srs-studienreisen.de</a> / Academia Baltica: Tel. 04630-550, <a href="mailto:office@academiabaltica.de">office@academiabaltica.de</a><br/>Bitte teilen Sie mir mit, wenn Sie keine weiteren Reiseinformationen von mir wünschen.<br/><br/></span>
+									<ul class="menu" style="color: #696969;">
+</span><li>Copyright &copy; <span id="cyear"></span> Prof. Dr. Heinz Schürmann. Alle Rechte vorbehalten</li><br/><br/>Template: <a href="http://html5up.net">HTML5 UP</a><br/><span>Erstellt von <a href="https://www.fehling.me/">Luke Fehling</a> & <a href="https://www.tiekoetter.com/">Léon Tiekötter</a></span></span>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</footer>
+				</div>
+
+			</div>
+		<!-- Scripts -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-164606937-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-164606937-1');
+</script>
+			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/jquery.min.js"></script>
+			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/jquery.dropotron.min.js"></script>
+			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/browser.min.js"></script>
+			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/breakpoints.min.js"></script>
+			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/util.js"></script>
+			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/main.js"></script>
+			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/pdfobject.min.js"></script>
+			<script>
+
+const capitalize = (s) => {
+  if (typeof s !== 'string') return ''
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}
+  if (location.hash) {
+      var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+      if (hash == "index") {
+        $("#load").load("haupt.html");
+        document.getElementById("index").classList.add('current');
+      }
+      else if (hash == "reisen-aktuell") {
+        $("#load").load("reisen-aktuell.html");
+        document.title = 'Aktuelle Reisen – geocultur.de';
+        document.getElementById("reisen").classList.add('current');
+        document.getElementById("index").classList.remove('current');
+      }
+      else if (hash == "reisen-zukunft") {
+        $("#load").load("reisen-zukunft.html");
+        document.title = 'Zukünftige Reisen – geocultur.de';
+        document.getElementById("reisen").classList.add('current');
+        document.getElementById("index").classList.remove('current');
+      }
+      else {
+        $("#load").load(hash+".html");
+        document.title = capitalize(hash)+' – geocultur.de';
+        document.getElementById(hash).classList.add('current');
+        document.getElementById("index").classList.remove('current');
+
+      }
+} else {
+      $("#load").load("haupt.html");
+      document.getElementById("index").classList.add('current');
+  }
+function loadPage(page)
+{
+var elems = document.querySelectorAll(".current");
+
+[].forEach.call(elems, function(el) {
+    el.classList.remove("current");
+});
+  if (page == "aktuelles") {
+    $("#load").load("aktuelles.html");
+  }
+  else if (page == "index") {
+    $("#load").load("haupt.html");
+  }
+  else if (page == "reisen-zukunft") {
+    $("#load").load("reisen-zukunft.html");
+  }
+  else if (page == "reisen-aktuell") {
+    $("#load").load("reisen-aktuell.html");
+  }
+  else if (page == "download") {
+    $("#load").load("download.html");
+  }
+  else if (page == "impressum") {
+    $("#load").load("impressum.html");
+  }
+}
+function currentclass(element) {
+    $(element).parent().addClass('current');
+}
+function currentclassreisen(element) {
+    document.getElementById("reisen").classList.add('current');
+}
+function changetitle(title) {
+    document.title = capitalize(title)+' – geocultur.de';
+}
+window.onload = function cyear()
+{
+  var currentdate = new Date();
+  var datetime = currentdate.getFullYear();
+  document.getElementById("cyear").innerHTML = datetime;
+}
+function unloadanimation() {
+  document.getElementById("profil").classList.add("unloaded");
+}
+function loadProfil() {
+  document.getElementById("profil").classList.add("load");
+  document.getElementById("profil").classList.remove("unloaded");
+  document.getElementById("profil").classList.remove("unload");
+}
+function unloadProfil() {
+
+  document.getElementById("profil").classList.remove("load");
+  document.getElementById("profil").classList.add("unload");
+  setTimeout(unloadanimation, 250);;
+}
+</script>
+<style>
+.unload {
+  transform: scaleY(0);    
+  transform-origin: top;
+  transition: transform 0.25s ease;
+}
+.unloaded {
+overflow: hidden;
+max-height: 0px;
+}
+.load {
+transform: scaleY(1);
+  transform-origin: top;
+  transition: transform 0.25s ease;
+}
+.indent {
+        padding-left: 1.5em;
+        text-indent:-1.5em;
+}
+</style>
+
+	</body>
+</html>
