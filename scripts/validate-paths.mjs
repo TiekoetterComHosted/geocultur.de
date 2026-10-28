@@ -2,21 +2,30 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const activeFiles = ["index.html", "assets/css/site.css"];
+const sourceRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const repositoryRoot = process.argv[2]
+  ? resolve(process.cwd(), process.argv[2])
+  : sourceRoot;
+const pageFiles = [
+  "index.html",
+  "aktuelles/index.html",
+  "programm/index.html",
+  "impressum/index.html",
+];
+const activeFiles = [...pageFiles, "assets/css/site.css"];
 const redirectFiles = [
+  "download/index.html",
   "Downloads.html",
   "Kontakt.html",
   "m_index.html",
-  "aktuelles/index.html",
-  "download/index.html",
-  "impressum/index.html",
   "reisen-aktuell/index.html",
   "reisen-zukunft/index.html",
 ];
+const cdnPrefix = "https://geoculturde.cdn.tiekoetter.cloud/";
 const missingPaths = new Set();
 const checkedPaths = new Set();
-const cdnPrefix = "https://geoculturde.cdn.tiekoetter.cloud/";
+const failures = [];
+let checkedFragments = 0;
 
 function checkPath(relativePath, sourceFile) {
   const normalizedPath = relativePath.split(/[?#]/, 1)[0];
@@ -27,6 +36,14 @@ function checkPath(relativePath, sourceFile) {
   }
 }
 
+function localPageForUrl(urlPath) {
+  const pathWithoutFragment = urlPath.split("#", 1)[0];
+  if (pathWithoutFragment === "/") {
+    return "index.html";
+  }
+  return `${pathWithoutFragment.replace(/^\//, "")}index.html`;
+}
+
 for (const activeFile of activeFiles) {
   const content = readFileSync(resolve(repositoryRoot, activeFile), "utf8");
   const cdnUrlPattern = /https:\/\/geoculturde\.cdn\.tiekoetter\.cloud\/[^\s"'<>);]+/g;
@@ -34,93 +51,106 @@ for (const activeFile of activeFiles) {
   for (const cdnUrl of content.match(cdnUrlPattern) ?? []) {
     checkPath(cdnUrl.slice(cdnPrefix.length), activeFile);
   }
-}
 
-const indexContent = readFileSync(resolve(repositoryRoot, "index.html"), "utf8");
-const idList = [...indexContent.matchAll(/\sid=["']([^"']+)["']/g)].map(
-  (match) => match[1],
-);
-const documentIds = new Set(idList);
-const fragmentLinks = new Set(
-  [...indexContent.matchAll(/\shref=["']#([^"']+)["']/g)].map((match) => match[1]),
-);
-const missingFragments = [...fragmentLinks].filter((fragment) => !documentIds.has(fragment));
-const headingCount = (indexContent.match(/<h1(?:\s|>)/g) ?? []).length;
-const failures = [];
-
-if (readFileSync(resolve(repositoryRoot, "CNAME"), "utf8").trim() !== "geoculturde.cdn.tiekoetter.cloud") {
-  failures.push("CNAME does not declare the expected GitHub Pages hostname.");
-}
-if (!existsSync(resolve(repositoryRoot, ".nojekyll"))) {
-  failures.push("The branch-based GitHub Pages mirror requires .nojekyll.");
-}
-
-if (documentIds.size !== idList.length) {
-  failures.push("The public document contains duplicate IDs.");
-}
-
-for (const imageTag of indexContent.match(/<img\b[^>]*>/g) ?? []) {
-  if (!/\salt=["'][^"']*["']/.test(imageTag)) {
-    failures.push(`Image is missing alt text: ${imageTag}`);
-  }
-  if (!/\swidth=["']\d+["']/.test(imageTag) || !/\sheight=["']\d+["']/.test(imageTag)) {
-    failures.push(`Image is missing intrinsic dimensions: ${imageTag}`);
+  if (content.includes("geoculturde-cdn.tiekoetter.cloud")) {
+    failures.push(`${activeFile} still references the retired CDN hostname.`);
   }
 }
 
-for (const ariaReference of indexContent.matchAll(
-  /\saria-(?:labelledby|describedby)=["']([^"']+)["']/g,
-)) {
-  for (const referencedId of ariaReference[1].split(/\s+/)) {
-    if (!documentIds.has(referencedId)) {
-      failures.push(`ARIA references missing ID #${referencedId}.`);
+for (const pageFile of pageFiles) {
+  const content = readFileSync(resolve(repositoryRoot, pageFile), "utf8");
+  const idList = [...content.matchAll(/\sid=["']([^"']+)["']/g)].map(
+    (match) => match[1],
+  );
+  const documentIds = new Set(idList);
+  const fragmentLinks = new Set(
+    [...content.matchAll(/\shref=["']#([^"']+)["']/g)].map((match) => match[1]),
+  );
+  checkedFragments += fragmentLinks.size;
+
+  if (documentIds.size !== idList.length) {
+    failures.push(`${pageFile} contains duplicate IDs.`);
+  }
+  for (const fragment of fragmentLinks) {
+    if (!documentIds.has(fragment)) {
+      failures.push(`${pageFile} links to missing section #${fragment}.`);
     }
   }
-}
 
-const headingLevels = [...indexContent.matchAll(/<h([1-6])(?:\s|>)/g)].map(
-  (match) => Number(match[1]),
-);
-for (let index = 1; index < headingLevels.length; index += 1) {
-  if (headingLevels[index] > headingLevels[index - 1] + 1) {
-    failures.push(
-      `Heading level jumps from h${headingLevels[index - 1]} to h${headingLevels[index]}.`,
-    );
+  for (const imageTag of content.match(/<img\b[^>]*>/g) ?? []) {
+    if (!/\salt=["'][^"']*["']/.test(imageTag)) {
+      failures.push(`${pageFile} has an image without alt text.`);
+    }
+    if (!/\swidth=["']\d+["']/.test(imageTag) || !/\sheight=["']\d+["']/.test(imageTag)) {
+      failures.push(`${pageFile} has an image without intrinsic dimensions.`);
+    }
+  }
+
+  for (const ariaReference of content.matchAll(
+    /\saria-(?:labelledby|describedby)=["']([^"']+)["']/g,
+  )) {
+    for (const referencedId of ariaReference[1].split(/\s+/)) {
+      if (!documentIds.has(referencedId)) {
+        failures.push(`${pageFile} has an ARIA reference to missing ID #${referencedId}.`);
+      }
+    }
+  }
+
+  const headingLevels = [...content.matchAll(/<h([1-6])(?:\s|>)/g)].map(
+    (match) => Number(match[1]),
+  );
+  for (let index = 1; index < headingLevels.length; index += 1) {
+    if (headingLevels[index] > headingLevels[index - 1] + 1) {
+      failures.push(
+        `${pageFile} jumps from h${headingLevels[index - 1]} to h${headingLevels[index]}.`,
+      );
+    }
+  }
+
+  if (!/<html\s+lang=["']de["']/.test(content)) {
+    failures.push(`${pageFile} must declare German as its language.`);
+  }
+  if (!/<main\s/.test(content)) {
+    failures.push(`${pageFile} must contain a main landmark.`);
+  }
+  if ((content.match(/<h1(?:\s|>)/g) ?? []).length !== 1) {
+    failures.push(`${pageFile} must contain exactly one h1.`);
+  }
+  if (!/class=["']skip-link["']/.test(content)) {
+    failures.push(`${pageFile} must contain a skip link.`);
+  }
+  if ((content.match(/aria-current=["']page["']/g) ?? []).length !== 1) {
+    failures.push(`${pageFile} must identify exactly one current navigation item.`);
+  }
+  if (/<script(?:\s|>)/i.test(content) || /\son[a-z]+\s*=/i.test(content)) {
+    failures.push(`${pageFile} must not require JavaScript or inline event handlers.`);
+  }
+
+  for (const [, urlPath] of content.matchAll(/\shref=["'](\/[^"']*)["']/g)) {
+    const localPage = localPageForUrl(urlPath);
+    if (!existsSync(resolve(repositoryRoot, localPage))) {
+      failures.push(`${pageFile} links to missing local page ${urlPath}.`);
+    }
   }
 }
 
 for (const redirectFile of redirectFiles) {
   const content = readFileSync(resolve(repositoryRoot, redirectFile), "utf8");
-  const targetFragment = content.match(/URL=\/#([a-z-]+)/)?.[1];
+  const targetPath = content.match(/URL=(\/[^"']*)/)?.[1];
 
-  if (targetFragment && !documentIds.has(targetFragment)) {
-    failures.push(`${redirectFile} points to missing section #${targetFragment}.`);
+  if (!targetPath || !existsSync(resolve(repositoryRoot, localPageForUrl(targetPath)))) {
+    failures.push(`${redirectFile} has a missing or invalid redirect target.`);
   }
   if (!/<html\s+lang=["']de["']/.test(content) || !/<main>/.test(content)) {
     failures.push(`${redirectFile} is missing its language or main landmark.`);
   }
 }
 
-if (!/<html\s+lang=["']de["']/.test(indexContent)) {
-  failures.push("The public document must declare German as its language.");
+if (readFileSync(resolve(repositoryRoot, "CNAME"), "utf8").trim() !== "geoculturde.cdn.tiekoetter.cloud") {
+  failures.push("CNAME does not declare the expected GitHub Pages hostname.");
 }
-if (!/<main\s/.test(indexContent)) {
-  failures.push("The public document must contain a main landmark.");
-}
-if (headingCount !== 1) {
-  failures.push(`Expected exactly one h1, found ${headingCount}.`);
-}
-if (!/class=["']skip-link["']/.test(indexContent)) {
-  failures.push("The public document must contain a skip link.");
-}
-if (/<script(?:\s|>)/i.test(indexContent)) {
-  failures.push("The public document must not require JavaScript.");
-}
-if (/\son[a-z]+\s*=/i.test(indexContent)) {
-  failures.push("The public document must not contain inline event handlers.");
-}
-for (const fragment of missingFragments) {
-  failures.push(`Missing section for in-page link #${fragment}.`);
+if (!existsSync(resolve(repositoryRoot, ".nojekyll"))) {
+  failures.push("The GitHub Pages deployment requires .nojekyll.");
 }
 for (const missingPath of missingPaths) {
   failures.push(`Missing mirrored path: ${missingPath}.`);
@@ -134,6 +164,6 @@ if (failures.length > 0) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${checkedPaths.size} mirrored paths and ${fragmentLinks.size} in-page links; public page uses no JavaScript.`,
+    `Validated ${pageFiles.length} pages, ${checkedPaths.size} mirrored paths, and ${checkedFragments} in-page links; public pages use no JavaScript.`,
   );
 }
