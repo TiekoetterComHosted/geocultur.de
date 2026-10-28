@@ -7,12 +7,11 @@
   --muted: #555f68;
   --heading: #171b1f;
   --accent: #ff6600;
-  --accent-text: #a33a00;
   --link: #005ea8;
   --link-hover: #003f73;
   --border: #c8d0d6;
-  --footer: #202a33;
-  --focus: #ffbf47;
+  --footer: #2b2b2b;
+  --focus: #ff6600;
   --content-width: 72rem;
   --reading-width: 48rem;
   --radius: 0.5rem;
@@ -35,7 +34,7 @@ li + li { margin-top: 0.45rem; }
 address { font-style: normal; }
 a { color: var(--link); text-decoration-thickness: 0.11em; text-underline-offset: 0.16em; }
 a:hover { color: var(--link-hover); text-decoration-thickness: 0.18em; }
-:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; box-shadow: 0 0 0 6px #1b1b1b; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; box-shadow: 0 0 0 6px #1b1b1b; }
 [id] { scroll-margin-top: 1rem; }
 
 .skip-link { position: fixed; z-index: 100; top: 0.75rem; left: 0.75rem; padding: 0.75rem 1rem; transform: translateY(-200%); background: var(--heading); color: #fff; font-weight: 700; }
@@ -51,14 +50,14 @@ a:hover { color: var(--link-hover); text-decoration-thickness: 0.18em; }
 .navigation { display: flex; margin: 0; padding: 0; flex-wrap: wrap; justify-content: flex-end; gap: 0.25rem; list-style: none; }
 .navigation li { margin: 0; }
 .navigation a { display: inline-flex; min-height: 2.75rem; padding: 0.55rem 0.8rem; align-items: center; border-radius: var(--radius); color: var(--heading); font-weight: 700; text-decoration: none; }
-.navigation a:hover { background: var(--surface-tinted); }
-.navigation a[aria-current="page"] { background: var(--heading); color: #fff; }
-.navigation a[aria-current="page"]:hover { background: var(--link-hover); color: #fff; }
+.navigation a:hover { background: var(--accent); color: var(--heading); }
+.navigation a[aria-current="page"] { background: var(--accent); color: var(--heading); }
+.navigation a[aria-current="page"]:hover { background: var(--accent); color: var(--heading); }
 
-.hero { padding-block: clamp(2.5rem, 7vw, 6rem); background: linear-gradient(135deg, rgb(255 255 255 / 96%), rgb(237 243 246 / 92%)), url("https://geoculturde.cdn.tiekoetter.cloud/assets/images/site/bg.png") center / cover; }
+.hero { padding-block: clamp(2.5rem, 7vw, 6rem); background: linear-gradient(135deg, rgb(255 255 255 / 92%), rgb(237 243 246 / 88%)), url("/assets/images/site/bg.svg") center / cover; }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(15rem, 0.75fr); align-items: center; gap: clamp(2rem, 6vw, 5rem); }
-.hero h1 { max-width: none; color: var(--accent-text); font-size: clamp(2.25rem, 5vw, 2.625rem); font-weight: 400; letter-spacing: normal; }
-.eyebrow { margin-bottom: 0.6rem; color: var(--accent-text); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.hero h1 { max-width: none; color: var(--accent); font-size: clamp(2.25rem, 5vw, 2.625rem); font-weight: 400; letter-spacing: normal; }
+.eyebrow { margin-bottom: 0.6rem; color: var(--heading); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .quotation { max-width: 38rem; padding-inline-start: 1.25rem; border-inline-start: 0.35rem solid var(--accent); }
 .quotation blockquote { font-size: clamp(1.2rem, 2vw, 1.625rem); font-weight: 700; }
 .quotation__attribution { display: flex; align-items: baseline; gap: 0.45rem; margin-top: 0.8rem; padding-top: 0.7rem; border-top: 1px solid var(--border); color: var(--muted); }
@@ -88,7 +87,7 @@ a:hover { color: var(--link-hover); text-decoration-thickness: 0.18em; }
 .page-section .content-width > h2:not(:first-child) { margin-top: 3rem; }
 .programme-download { padding-bottom: 1.25rem; }
 .legacy-targets { margin-block: 0 3rem; }
-.legacy-target { display: none; padding: 1rem 1.25rem; border: 2px solid var(--accent); border-radius: var(--radius); background: #fff7f1; }
+.legacy-target { display: none; padding: 1rem 1.25rem; border: 2px solid var(--accent); border-radius: var(--radius); background: var(--surface); }
 .legacy-target:target { display: block; }
 .legacy-target p { margin: 0; }
 .primary-link { display: inline-flex; min-height: 2.75rem; padding: 0.75rem 1.15rem; align-items: center; border-radius: var(--radius); background: var(--link); color: #fff; font-weight: 800; text-decoration: none; }

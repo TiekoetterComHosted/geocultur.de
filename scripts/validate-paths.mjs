@@ -53,6 +53,10 @@ for (const activeFile of activeFiles) {
     checkPath(cdnUrl.slice(cdnPrefix.length), activeFile);
   }
 
+  for (const [, localAsset] of content.matchAll(/url\(["']?(\/[^"')]+)["']?\)/g)) {
+    checkPath(localAsset.slice(1), activeFile);
+  }
+
   if (content.includes("geoculturde-cdn.tiekoetter.cloud")) {
     failures.push(`${activeFile} still references the retired CDN hostname.`);
   }
