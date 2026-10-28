@@ -75,12 +75,14 @@ a:hover { color: var(--link-hover); text-decoration-thickness: 0.18em; }
 .profile__content { max-width: var(--reading-width); padding: 0 1.25rem 1.25rem; }
 .profile__content li, .feature-grid li { font-size: 1.25rem; font-weight: 700; }
 .feature-grid { display: grid; margin-top: clamp(2.5rem, 6vw, 5rem); grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 4rem; }
-.page-header { padding-block: clamp(3rem, 7vw, 5.5rem); background: var(--surface-tinted); }
-.page-header h1 { max-width: 18ch; }
-.page-header__summary { max-width: 48ch; color: var(--muted); font-size: 1.2rem; }
-.page-section { padding-block: clamp(3.5rem, 8vw, 7rem); }
+.page-header { padding-block: clamp(2rem, 4vw, 3.5rem); background: var(--surface-tinted); }
+.page-header h1 { max-width: 22ch; margin-bottom: 0.75rem; font-size: clamp(2rem, 4vw, 3.25rem); }
+.page-header__summary { max-width: 48ch; color: var(--muted); font-size: 1.1rem; }
+.page-section { padding-block: clamp(2.75rem, 6vw, 5rem); }
+.page-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .page-section--tinted { background: var(--surface-tinted); }
 .page-section .content-width > h2:not(:first-child) { margin-top: 3rem; }
+.programme-download { padding-bottom: 1.25rem; }
 .legacy-targets { margin-block: 0 3rem; }
 .legacy-target { display: none; padding: 1rem 1.25rem; border: 2px solid var(--accent); border-radius: var(--radius); background: #fff7f1; }
 .legacy-target:target { display: block; }
