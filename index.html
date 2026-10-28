@@ -1,201 +1,189 @@
-<!DOCTYPE HTML>
-<!--
-	Verti by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Home – geocultur.de</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="shortcut icon" type="image/x-icon" href="https://geoculturde-cdn.tiekoetter.cloud/favicon.ico">
-		<link rel="stylesheet" href="https://geoculturde-cdn.tiekoetter.cloud/assets/css/main.css" />
-	</head>
-	<body class="is-preload homepage">
-		<div id="page-wrapper">
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Individuell konzipierte Studienreisen unter wissenschaftlicher Leitung von Prof. Dr. Heinz Schürmann.">
+    <title>Individuelle Studienreisen – geocultur.de</title>
+    <link rel="canonical" href="https://www.geocultur.de/">
+    <link rel="icon" href="https://geoculturde.cdn.tiekoetter.cloud/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="https://geoculturde.cdn.tiekoetter.cloud/assets/css/site.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Direkt zum Inhalt</a>
 
-			<!-- Header -->
-				<div id="header-wrapper">
-					<header id="header" class="container">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="#index" aria-label="geocultur.de – Startseite">
+          <img src="https://geoculturde.cdn.tiekoetter.cloud/assets/images/site/logo.png" width="5000" height="2500" alt="">
+        </a>
+        <nav aria-label="Hauptnavigation">
+          <ul class="navigation">
+            <li><a href="#index">Start</a></li>
+            <li><a href="#aktuelles">Aktuelles</a></li>
+            <li><a href="#download">Programm</a></li>
+            <li><a href="#impressum">Impressum</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-						<!-- Logo -->
-							<a href="#index" onclick="loadPage('index'); changetitle('home')" class="image/logo"><img src="https://geoculturde-cdn.tiekoetter.cloud/assets/images/site/logo.png" alt="" style= "width:20rem ; height:auto"/></a>
-						<!-- Nav -->
-							<nav id="nav">
-								<ul>
-									<li class="current" id="index"><a href="#index" onclick="loadPage('index'); currentclass(this); changetitle('home');">Home</a></li>
-									<li id="aktuelles"><a href="#aktuelles" onclick="loadPage('aktuelles'); currentclass(this); changetitle('aktuelles');">Aktuelles</a></li>
-									<li id="download"><a href="#download" onclick="loadPage('download'); currentclass(this); changetitle('download');" style="text-decoration: underline;">Programm</a></li>
-									  <!--  <li id="reisen">
-									     <a>Reisen</a>
-										   <ul>
-											<li><a href="#reisen-aktuell" onclick="loadPage('reisen-aktuell'); currentclassreisen(this); changetitle('aktuelle Reisen');">Reisen 2020</a></li>
-											<li><a href="#reisen-zukunft" onclick="loadPage('reisen-zukunft'); currentclassreisen(this); changetitle('zukünftige Reisen');">Reisen 2021</a></li>
-										</ul>
-									</li> -->
-									<li id="impressum"><a href="#impressum" onclick="loadPage('impressum'); currentclass(this); changetitle('impressum');">Impressum</a></li>
-								</ul>
-							</nav>
+    <main id="main-content" tabindex="-1">
+      <section id="index" class="hero" aria-labelledby="page-title">
+        <div class="content-width hero__grid">
+          <div>
+            <p class="eyebrow">Natur · Kunst · Kultur · Begegnung</p>
+            <h1 id="page-title">Individuelle Studienreisen</h1>
+            <figure class="quotation">
+              <blockquote><p>„Schlecht reisen – das heißt als Mensch dabei unverändert bleiben.“</p></blockquote>
+              <figcaption>Ernst Bloch</figcaption>
+            </figure>
+            <ul class="themes" aria-label="Thematische Schwerpunkte">
+              <li>Natur + Kunst</li>
+              <li>Literatur + Landschaft</li>
+              <li>Architektur + Entwicklung</li>
+              <li>Kontakte + Begegnung</li>
+              <li>Religion + Inspiration</li>
+              <li>Erleben + Genießen</li>
+            </ul>
+            <p class="hero__statement">Die etwas andere Form interkultureller Begegnung</p>
+          </div>
 
-					</header>
-				</div>
+          <figure class="portrait">
+            <img src="https://geoculturde.cdn.tiekoetter.cloud/assets/images/site/Heinz.jpg" width="1920" height="1920" alt="Prof. Dr. Heinz Schürmann">
+            <figcaption>
+              <span>Konzeption und wissenschaftliche Leitung</span>
+              <strong>Prof. Dr. Heinz Schürmann</strong>
+            </figcaption>
+          </figure>
+        </div>
 
-			<!-- Banner -->
-           <div id="load"></div>
-		   			<!-- Footer -->
-				<div id="footer-wrapper">
-					<footer id="footer" class="container">
-						<div class="row">
-							<div class="col-3 col-6-medium col-12-small" style="margin-left: auto; margin-right: auto; text-align:center;">
-		   								<!-- Contact -->
-									<section class="widget contact last">
-										<h3 style="color:#ff6600;">Kontakt</h3>
-										<ul style="padding-left:14px;">
-											<li><a href="https://wa.me/491755974747" class="fab fa-whatsapp"><span class="label"></span></a></li>
-											<li><a href="mailto:geocultur@web.de" class="fas fa-at"><span class="label"></span></a></li>
-											<li><a href="tel:+491755974747" class="fas fa-phone"><span class="label"></span></a></li>
-										</ul>
-										<p style="font-size: 18px; font-weight: bold;">Kösliner Straße 2<br />
-										33605 Bielefeld<br />
-										Telefon: +49 175 5974747<br />
-										E-Mail: geocultur@web.de</p>
-									</section>
+        <div class="content-width">
+          <details class="profile">
+            <summary>Profil von Prof. Dr. Heinz Schürmann</summary>
+            <div class="profile__content">
+              <ul>
+                <li>Studium der Geographie, Germanistik, Kunstgeschichte und Philosophie</li>
+                <li>Promotion über „Sektoral polarisierte Entwicklung und regionale Partizipation“ in Südtunesien</li>
+                <li>Habilitation über „Die Metamorphose der Dörfer“: Dorferneuerung und Ortsbildwandel in sozioökonomischem, architekturtheoretischem und literarischem Kontext</li>
+                <li>Universitäre Forschung und Lehre in Mainz und Bielefeld sowie Gastprofessuren in Deutschland und Afrika</li>
+                <li>Forschungs- und Planungsprojekte innerhalb und außerhalb Europas: Stadtsanierung, Dorferneuerung, Entwicklung, Tourismus, Demographie, Kulturlandschaftsgenese, Regionalmarketing, Image und Identität, Fachdidaktik und Wissenschaftstheorie</li>
+                <li>Wissenschaftliche Weiterbildung, Lehrerfortbildung, Erwachsenenbildung, Seniorenarbeit und interreligiöser Dialog</li>
+                <li>Projektmanagement und Aufbau vernetzter regionaler Bildungslandschaften</li>
+                <li>Wissenschaftliche Kooperation mit Ministerien, Kommunen, Kirchen, Akademien, Schulen und Museen</li>
+              </ul>
+            </div>
+          </details>
 
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-12">
-								<div id="copyright">
-										<span style="color:#696969;"><span style="font-weight: bold;">Datenschutz und Reisebedingungen:</span><br/>
-Es gelten die diesbezüglichen Ausführungen meiner Partner Bröskamp Touristik International/Harsewinkel, SRS Dieter Schetat/Berlin sowie Academia Baltica Akademiezentrum Sankelmark/Oeversee.<br/>Bröskamp Touristik International: Tel. 05247-923126 (Manfred Höffner), <a href="m.hoeffner@broeskamp-online.de">m.hoeffner@broeskamp-online.de</a> / SRS Schetat: Tel. 030 89510003, <a href="mailto:info@srs-studienreisen.de">info@srs-studienreisen.de</a> / Academia Baltica: Tel. 04630-550, <a href="mailto:office@academiabaltica.de">office@academiabaltica.de</a><br/>Bitte teilen Sie mir mit, wenn Sie keine weiteren Reiseinformationen von mir wünschen.<br/><br/></span>
-									<ul class="menu" style="color: #696969;">
-</span><li>Copyright &copy; <span id="cyear"></span> Prof. Dr. Heinz Schürmann. Alle Rechte vorbehalten</li><br/><br/>Template: <a href="http://html5up.net">HTML5 UP</a><br/><span>Erstellt von <a href="https://www.fehling.me/">Luke Fehling</a> & <a href="https://www.tiekoetter.com/">Léon Tiekötter</a></span></span>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</footer>
-				</div>
+          <div class="feature-grid">
+            <section aria-labelledby="destinations-title">
+              <h2 id="destinations-title">Hauptziele</h2>
+              <ul>
+                <li>Ost- und Mitteleuropa, alte deutsche Siedlungsgebiete</li>
+                <li>Nordsee, Halligen und Ostsee</li>
+                <li>Mittelmeer, Orient und Wüsten</li>
+                <li>Länder der „Dritten Welt“</li>
+              </ul>
+            </section>
+            <section aria-labelledby="travel-style-title">
+              <h2 id="travel-style-title">Zu den Reisen</h2>
+              <ul>
+                <li>Individuelle Konzeption mit ganzheitlichem Ansatz</li>
+                <li>Meist kleine Gruppen und eine persönliche, ungezwungene Atmosphäre</li>
+                <li>Routen abseits touristischer Trampelpfade</li>
+                <li>Verständliche Vermittlung von Hintergründen und Zusammenhängen</li>
+                <li>Kennenlernen der charakteristischen Besonderheiten eines Raumes – auch kulinarisch und literarisch</li>
+                <li>Begegnung mit Menschen vor Ort</li>
+                <li>Flexible Programmgestaltung unter Berücksichtigung individueller Wünsche</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </section>
 
-			</div>
-		<!-- Scripts -->
+      <section id="aktuelles" class="page-section page-section--tinted" aria-labelledby="news-title">
+        <div class="content-width reading-width">
+          <p class="eyebrow">Aktuelles</p>
+          <h2 id="news-title">Information</h2>
+          <p>Die Firma Ostreisen/Lemgo (Manfred Höffner), mein bisheriger Hauptreisepartner, hat mit der Firma Bröskamp Touristik International/Harsewinkel fusioniert. Die neuen Kontaktdaten finden Sie in der <a href="#download">Reiseprogrammübersicht</a>.</p>
+        </div>
+      </section>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-164606937-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+      <section id="download" class="page-section" aria-labelledby="programme-title">
+        <div class="content-width">
+          <p class="eyebrow">Programm</p>
+          <h2 id="programme-title">Aktuelle Programmübersicht</h2>
+          <p id="programme-meta">Stand: 26. August 2026 · PDF · 276 KB</p>
+          <p><a class="primary-link" href="https://geoculturde.cdn.tiekoetter.cloud/documents/programmes/Reisen-aktuell-2026-08.pdf" aria-describedby="programme-meta">Programm als PDF öffnen</a></p>
 
-  gtag('config', 'UA-164606937-1');
-</script>
-			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/jquery.min.js"></script>
-			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/jquery.dropotron.min.js"></script>
-			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/browser.min.js"></script>
-			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/breakpoints.min.js"></script>
-			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/util.js"></script>
-			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/main.js"></script>
-			<script src="https://geoculturde-cdn.tiekoetter.cloud/assets/js/pdfobject.min.js"></script>
-			<script>
+          <h3>Wichtige Partner</h3>
+          <ul class="partner-list">
+            <li>
+              <a href="https://www.broeskamp-busreisen.de/">
+                <img src="https://geoculturde.cdn.tiekoetter.cloud/assets/images/partners/broeskamp_touristik.png" width="326" height="130" alt="" loading="lazy">
+                <span>Bröskamp Touristik International</span>
+              </a>
+            </li>
+            <li>
+              <a href="http://www.academiabaltica.de/">
+                <img src="https://geoculturde.cdn.tiekoetter.cloud/assets/images/partners/neu.png" width="439" height="375" alt="" loading="lazy">
+                <span>Academia Baltica</span>
+              </a>
+            </li>
+            <li>
+              <a href="http://www.srs-studienreisen.de/">
+                <img src="https://geoculturde.cdn.tiekoetter.cloud/assets/images/partners/srs.png" width="1000" height="872" alt="" loading="lazy">
+                <span>SRS Studienreisen</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
 
-const capitalize = (s) => {
-  if (typeof s !== 'string') return ''
-  return s.charAt(0).toUpperCase() + s.slice(1)
-}
-const pagePaths = {
-  index: "pages/home.html",
-  aktuelles: "pages/news.html",
-  download: "pages/programme.html",
-  impressum: "pages/imprint.html",
-  "reisen-aktuell": "pages/travel/2020.html",
-  "reisen-zukunft": "pages/travel/2021.html"
-};
-const requestedPage = window.location.hash.substring(1) || "index";
-const initialPage = pagePaths[requestedPage] ? requestedPage : "index";
+      <section id="impressum" class="page-section page-section--tinted" aria-labelledby="imprint-title">
+        <div class="content-width imprint-grid">
+          <div>
+            <p class="eyebrow">Rechtliches</p>
+            <h2 id="imprint-title">Impressum</h2>
+            <p>Angaben gemäß § 5 TMG:</p>
+            <address>Prof. Dr. Heinz Schürmann<br>Kösliner Straße 2<br>33605 Bielefeld<br>Deutschland</address>
+          </div>
+          <div>
+            <h3>Kontakt</h3>
+            <address>Mobil: <a href="tel:+491755974747">+49 175 5974747</a><br>E-Mail: <a href="mailto:geocultur@web.de">geocultur@web.de</a></address>
+            <p>Registereintrag: Bielefeld<br>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: 305/5162/1358</p>
+            <p>Webmaster: Luke Fehling und Léon Tiekötter (<a href="mailto:webmaster@geocultur.de">webmaster@geocultur.de</a>)</p>
+          </div>
+        </div>
+      </section>
+    </main>
 
-$("#load").load(pagePaths[initialPage]);
-document.title = capitalize(initialPage) + ' – geocultur.de';
-
-const initialNavigationItem = document.getElementById(initialPage);
-if (initialNavigationItem) {
-  initialNavigationItem.classList.add('current');
-}
-function loadPage(page)
-{
-var elems = document.querySelectorAll(".current");
-
-[].forEach.call(elems, function(el) {
-    el.classList.remove("current");
-});
-  if (page == "aktuelles") {
-    $("#load").load("pages/news.html");
-  }
-  else if (page == "index") {
-    $("#load").load("pages/home.html");
-  }
-  else if (page == "reisen-zukunft") {
-    $("#load").load("pages/travel/2021.html");
-  }
-  else if (page == "reisen-aktuell") {
-    $("#load").load("pages/travel/2020.html");
-  }
-  else if (page == "download") {
-    $("#load").load("pages/programme.html");
-  }
-  else if (page == "impressum") {
-    $("#load").load("pages/imprint.html");
-  }
-}
-function currentclass(element) {
-    $(element).parent().addClass('current');
-}
-function currentclassreisen(element) {
-    document.getElementById("reisen").classList.add('current');
-}
-function changetitle(title) {
-    document.title = capitalize(title)+' – geocultur.de';
-}
-window.onload = function cyear()
-{
-  var currentdate = new Date();
-  var datetime = currentdate.getFullYear();
-  document.getElementById("cyear").innerHTML = datetime;
-}
-function unloadanimation() {
-  document.getElementById("profil").classList.add("unloaded");
-}
-function loadProfil() {
-  document.getElementById("profil").classList.add("load");
-  document.getElementById("profil").classList.remove("unloaded");
-  document.getElementById("profil").classList.remove("unload");
-}
-function unloadProfil() {
-
-  document.getElementById("profil").classList.remove("load");
-  document.getElementById("profil").classList.add("unload");
-  setTimeout(unloadanimation, 250);;
-}
-</script>
-<style>
-.unload {
-  transform: scaleY(0);    
-  transform-origin: top;
-  transition: transform 0.25s ease;
-}
-.unloaded {
-overflow: hidden;
-max-height: 0px;
-}
-.load {
-transform: scaleY(1);
-  transform-origin: top;
-  transition: transform 0.25s ease;
-}
-.indent {
-        padding-left: 1.5em;
-        text-indent:-1.5em;
-}
-</style>
-
-	</body>
+    <footer class="site-footer">
+      <div class="content-width footer-grid">
+        <section aria-labelledby="contact-title">
+          <h2 id="contact-title">Kontakt</h2>
+          <address>Prof. Dr. Heinz Schürmann<br>Kösliner Straße 2<br>33605 Bielefeld</address>
+          <ul class="contact-links">
+            <li><a href="tel:+491755974747">Anrufen: +49 175 5974747</a></li>
+            <li><a href="mailto:geocultur@web.de">E-Mail schreiben</a></li>
+            <li><a href="https://wa.me/491755974747">WhatsApp öffnen</a></li>
+          </ul>
+        </section>
+        <section aria-labelledby="conditions-title">
+          <h2 id="conditions-title">Datenschutz und Reisebedingungen</h2>
+          <p>Es gelten die diesbezüglichen Ausführungen meiner Partner Bröskamp Touristik International/Harsewinkel, SRS Dieter Schetat/Berlin sowie Academia Baltica Akademiezentrum Sankelmark/Oeversee.</p>
+          <ul class="partner-contacts">
+            <li>Bröskamp Touristik International: Telefon 05247 923126 (Manfred Höffner), <a href="mailto:m.hoeffner@broeskamp-online.de">m.hoeffner@broeskamp-online.de</a></li>
+            <li>SRS Schetat: Telefon 030 89510003, <a href="mailto:info@srs-studienreisen.de">info@srs-studienreisen.de</a></li>
+            <li>Academia Baltica: Telefon 04630 550, <a href="mailto:office@academiabaltica.de">office@academiabaltica.de</a></li>
+          </ul>
+          <p>Bitte teilen Sie mir mit, wenn Sie keine weiteren Reiseinformationen wünschen.</p>
+        </section>
+      </div>
+      <div class="content-width site-footer__legal">
+        <p>Copyright © 2020–2026 Prof. Dr. Heinz Schürmann. Alle Rechte vorbehalten.</p>
+        <p>Ursprüngliches Template: <a href="https://html5up.net/">HTML5 UP</a> · Erstellt von <a href="https://www.fehling.me/">Luke Fehling</a> und <a href="https://www.tiekoetter.com/">Léon Tiekötter</a></p>
+      </div>
+    </footer>
+  </body>
 </html>
