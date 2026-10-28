@@ -50,8 +50,8 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--focus); outlin
 .navigation { display: flex; margin: 0; padding: 0; flex-wrap: wrap; justify-content: flex-end; gap: 0.25rem; list-style: none; }
 .navigation li { margin: 0; }
 .navigation a { display: inline-flex; min-height: 2.75rem; padding: 0.55rem 0.8rem; align-items: center; border-radius: var(--radius); color: var(--heading); font-weight: 700; text-decoration: none; }
-.navigation a:hover { background: var(--accent); color: var(--heading); }
-.navigation a[aria-current="page"] { background: var(--accent); color: var(--heading); }
+.navigation a:hover { background: var(--surface-tinted); }
+.navigation a[aria-current="page"] { background: var(--heading); color: #fff; }
 .navigation a[aria-current="page"]:hover { background: var(--accent); color: var(--heading); }
 
 .hero { padding-block: clamp(2.5rem, 7vw, 6rem); background: linear-gradient(135deg, rgb(255 255 255 / 92%), rgb(237 243 246 / 88%)), url("/assets/images/site/bg.svg") center / cover; }
