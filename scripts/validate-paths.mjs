@@ -25,6 +25,7 @@ const cdnPrefix = "https://geoculturde.cdn.tiekoetter.cloud/";
 const missingPaths = new Set();
 const checkedPaths = new Set();
 const failures = [];
+const canonicalUrls = new Set();
 let checkedFragments = 0;
 
 function checkPath(relativePath, sourceFile) {
@@ -124,6 +125,48 @@ for (const pageFile of pageFiles) {
   if (!/class=["']skip-link["']/.test(content)) {
     failures.push(`${pageFile} must contain a skip link.`);
   }
+
+  const title = content.match(/<title>([^<]+)<\/title>/)?.[1];
+  const description = content.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']>/)?.[1];
+  const canonicalUrl = content.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']>/)?.[1];
+  const openGraphUrl = content.match(/<meta\s+property=["']og:url["']\s+content=["']([^"']+)["']>/)?.[1];
+
+  if (!title || !description) {
+    failures.push(`${pageFile} must have a title and meta description.`);
+  }
+  if (!canonicalUrl?.startsWith("https://www.geocultur.de/")) {
+    failures.push(`${pageFile} must have a www.geocultur.de canonical URL.`);
+  } else {
+    canonicalUrls.add(canonicalUrl);
+  }
+  if (openGraphUrl !== canonicalUrl) {
+    failures.push(`${pageFile} Open Graph URL must match its canonical URL.`);
+  }
+  for (const requiredMetadata of [
+    /<meta\s+name=["']robots["']\s+content=["'][^"']+["']>/,
+    /<meta\s+property=["']og:title["']\s+content=["'][^"']+["']>/,
+    /<meta\s+property=["']og:description["']\s+content=["'][^"']+["']>/,
+    /<meta\s+property=["']og:image["']\s+content=["'][^"']+["']>/,
+    /<meta\s+name=["']twitter:card["']\s+content=["'][^"']+["']>/,
+  ]) {
+    if (!requiredMetadata.test(content)) {
+      failures.push(`${pageFile} is missing required SEO or social metadata.`);
+      break;
+    }
+  }
+
+  const structuredDataPattern = /<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi;
+  const structuredDataBlocks = [...content.matchAll(structuredDataPattern)];
+  if (structuredDataBlocks.length === 0) {
+    failures.push(`${pageFile} must contain structured data.`);
+  }
+  for (const [, structuredData] of structuredDataBlocks) {
+    try {
+      JSON.parse(structuredData);
+    } catch {
+      failures.push(`${pageFile} contains invalid JSON-LD.`);
+    }
+  }
   const navigationBlocks = [...content.matchAll(
     /<nav\b[^>]*aria-label=["'][^"']*Hauptnavigation[^"']*["'][^>]*>([\s\S]*?)<\/nav>/g,
   )];
@@ -135,8 +178,9 @@ for (const pageFile of pageFiles) {
   ) {
     failures.push(`${pageFile} must identify one current item in each navigation.`);
   }
-  if (/<script(?:\s|>)/i.test(content) || /\son[a-z]+\s*=/i.test(content)) {
-    failures.push(`${pageFile} must not require JavaScript or inline event handlers.`);
+  const contentWithoutStructuredData = content.replace(structuredDataPattern, "");
+  if (/<script(?:\s|>)/i.test(contentWithoutStructuredData) || /\son[a-z]+\s*=/i.test(content)) {
+    failures.push(`${pageFile} must not require executable JavaScript or inline event handlers.`);
   }
 
   for (const [, urlPath] of content.matchAll(/\shref=["'](\/[^"']*)["']/g)) {
@@ -157,6 +201,12 @@ for (const redirectFile of redirectFiles) {
   if (!/<html\s+lang=["']de["']/.test(content) || !/<main>/.test(content)) {
     failures.push(`${redirectFile} is missing its language or main landmark.`);
   }
+  if (!/<meta\s+name=["']robots["']\s+content=["']noindex,follow["']>/.test(content)) {
+    failures.push(`${redirectFile} must prevent indexing while allowing link discovery.`);
+  }
+  if (!/<link\s+rel=["']canonical["']\s+href=["']https:\/\/www\.geocultur\.de\//.test(content)) {
+    failures.push(`${redirectFile} must declare its canonical www.geocultur.de target.`);
+  }
 }
 
 if (readFileSync(resolve(repositoryRoot, "CNAME"), "utf8").trim() !== "geoculturde.cdn.tiekoetter.cloud") {
@@ -164,6 +214,20 @@ if (readFileSync(resolve(repositoryRoot, "CNAME"), "utf8").trim() !== "geocultur
 }
 if (!existsSync(resolve(repositoryRoot, ".nojekyll"))) {
   failures.push("The GitHub Pages deployment requires .nojekyll.");
+}
+const sitemap = readFileSync(resolve(repositoryRoot, "sitemap.xml"), "utf8");
+const robots = readFileSync(resolve(repositoryRoot, "robots.txt"), "utf8");
+const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+if (canonicalUrls.size !== pageFiles.length || sitemapUrls.length !== pageFiles.length) {
+  failures.push("Canonical URLs and sitemap entries must be unique for every public page.");
+}
+for (const canonicalUrl of canonicalUrls) {
+  if (!sitemap.includes(`<loc>${canonicalUrl}</loc>`)) {
+    failures.push(`Sitemap is missing canonical URL ${canonicalUrl}.`);
+  }
+}
+if (!robots.includes("Sitemap: https://www.geocultur.de/sitemap.xml")) {
+  failures.push("robots.txt does not advertise the canonical sitemap.");
 }
 for (const missingPath of missingPaths) {
   failures.push(`Missing mirrored path: ${missingPath}.`);
@@ -177,6 +241,6 @@ if (failures.length > 0) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${pageFiles.length} pages, ${checkedPaths.size} mirrored paths, and ${checkedFragments} in-page links; public pages use no JavaScript.`,
+    `Validated ${pageFiles.length} pages, ${checkedPaths.size} mirrored paths, SEO metadata, and ${checkedFragments} in-page links; public pages use no executable JavaScript.`,
   );
 }

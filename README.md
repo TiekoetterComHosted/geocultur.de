@@ -51,6 +51,13 @@ After committing the workflow, choose **GitHub Actions** once under
 **Settings → Pages → Build and deployment → Source**. The existing custom domain
 and `CNAME` remain unchanged.
 
+## Search metadata
+
+Public pages use `https://www.geocultur.de` for canonical URLs, Open Graph page
+URLs, structured-data identifiers, and `sitemap.xml`. The presentation/CDN
+hostname is used only for static assets. Legacy redirects are excluded from
+indexing and point crawlers to their canonical destination.
+
 ## Accessibility
 
 The public pages use semantic HTML and do not require JavaScript. They include

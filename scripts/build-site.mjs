@@ -30,6 +30,8 @@ const publicEntries = [
   "programm",
   "reisen-aktuell",
   "reisen-zukunft",
+  "robots.txt",
+  "sitemap.xml",
 ];
 
 function replaceMarkedSection(content, startMarker, endMarker, replacement) {
