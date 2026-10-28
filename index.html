@@ -20,7 +20,7 @@
 					<header id="header" class="container">
 
 						<!-- Logo -->
-							<a href="#index" onclick="loadPage('index'); changetitle('home')" class="image/logo"><img src="https://geoculturde-cdn.tiekoetter.cloud/images/logo.png" alt="" style= "width:20rem ; height:auto"/></a>
+							<a href="#index" onclick="loadPage('index'); changetitle('home')" class="image/logo"><img src="https://geoculturde-cdn.tiekoetter.cloud/assets/images/site/logo.png" alt="" style= "width:20rem ; height:auto"/></a>
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
@@ -102,35 +102,24 @@ const capitalize = (s) => {
   if (typeof s !== 'string') return ''
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
-  if (location.hash) {
-      var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
-      if (hash == "index") {
-        $("#load").load("haupt.html");
-        document.getElementById("index").classList.add('current');
-      }
-      else if (hash == "reisen-aktuell") {
-        $("#load").load("reisen-aktuell.html");
-        document.title = 'Aktuelle Reisen – geocultur.de';
-        document.getElementById("reisen").classList.add('current');
-        document.getElementById("index").classList.remove('current');
-      }
-      else if (hash == "reisen-zukunft") {
-        $("#load").load("reisen-zukunft.html");
-        document.title = 'Zukünftige Reisen – geocultur.de';
-        document.getElementById("reisen").classList.add('current');
-        document.getElementById("index").classList.remove('current');
-      }
-      else {
-        $("#load").load(hash+".html");
-        document.title = capitalize(hash)+' – geocultur.de';
-        document.getElementById(hash).classList.add('current');
-        document.getElementById("index").classList.remove('current');
+const pagePaths = {
+  index: "pages/home.html",
+  aktuelles: "pages/news.html",
+  download: "pages/programme.html",
+  impressum: "pages/imprint.html",
+  "reisen-aktuell": "pages/travel/2020.html",
+  "reisen-zukunft": "pages/travel/2021.html"
+};
+const requestedPage = window.location.hash.substring(1) || "index";
+const initialPage = pagePaths[requestedPage] ? requestedPage : "index";
 
-      }
-} else {
-      $("#load").load("haupt.html");
-      document.getElementById("index").classList.add('current');
-  }
+$("#load").load(pagePaths[initialPage]);
+document.title = capitalize(initialPage) + ' – geocultur.de';
+
+const initialNavigationItem = document.getElementById(initialPage);
+if (initialNavigationItem) {
+  initialNavigationItem.classList.add('current');
+}
 function loadPage(page)
 {
 var elems = document.querySelectorAll(".current");
@@ -139,22 +128,22 @@ var elems = document.querySelectorAll(".current");
     el.classList.remove("current");
 });
   if (page == "aktuelles") {
-    $("#load").load("aktuelles.html");
+    $("#load").load("pages/news.html");
   }
   else if (page == "index") {
-    $("#load").load("haupt.html");
+    $("#load").load("pages/home.html");
   }
   else if (page == "reisen-zukunft") {
-    $("#load").load("reisen-zukunft.html");
+    $("#load").load("pages/travel/2021.html");
   }
   else if (page == "reisen-aktuell") {
-    $("#load").load("reisen-aktuell.html");
+    $("#load").load("pages/travel/2020.html");
   }
   else if (page == "download") {
-    $("#load").load("download.html");
+    $("#load").load("pages/programme.html");
   }
   else if (page == "impressum") {
-    $("#load").load("impressum.html");
+    $("#load").load("pages/imprint.html");
   }
 }
 function currentclass(element) {
