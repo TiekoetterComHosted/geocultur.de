@@ -29,7 +29,7 @@ jobs:
         run: node scripts/validate-paths.mjs _site
 
       - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
           include-hidden-files: true
