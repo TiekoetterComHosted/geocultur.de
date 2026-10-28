@@ -41,7 +41,8 @@ function localPageForUrl(urlPath) {
   if (pathWithoutFragment === "/") {
     return "index.html";
   }
-  return `${pathWithoutFragment.replace(/^\//, "")}index.html`;
+  const relativePath = pathWithoutFragment.replace(/^\//, "");
+  return relativePath.endsWith("/") ? `${relativePath}index.html` : relativePath;
 }
 
 for (const activeFile of activeFiles) {
@@ -119,8 +120,16 @@ for (const pageFile of pageFiles) {
   if (!/class=["']skip-link["']/.test(content)) {
     failures.push(`${pageFile} must contain a skip link.`);
   }
-  if ((content.match(/aria-current=["']page["']/g) ?? []).length !== 1) {
-    failures.push(`${pageFile} must identify exactly one current navigation item.`);
+  const navigationBlocks = [...content.matchAll(
+    /<nav\b[^>]*aria-label=["'][^"']*Hauptnavigation[^"']*["'][^>]*>([\s\S]*?)<\/nav>/g,
+  )];
+  if (
+    navigationBlocks.length !== 2
+    || navigationBlocks.some(([, navigation]) => (
+      navigation.match(/aria-current=["']page["']/g) ?? []
+    ).length !== 1)
+  ) {
+    failures.push(`${pageFile} must identify one current item in each navigation.`);
   }
   if (/<script(?:\s|>)/i.test(content) || /\son[a-z]+\s*=/i.test(content)) {
     failures.push(`${pageFile} must not require JavaScript or inline event handlers.`);

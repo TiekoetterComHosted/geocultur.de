@@ -7,7 +7,7 @@
     <title>Reiseprogramm – geocultur.de</title>
     <link rel="canonical" href="https://www.geocultur.de/programm/">
     <link rel="icon" href="https://geoculturde.cdn.tiekoetter.cloud/favicon.ico" sizes="any">
-    <link rel="stylesheet" href="https://geoculturde.cdn.tiekoetter.cloud/assets/css/site.css">
+    <link rel="stylesheet" href="/assets/css/site.css">
   </head>
   <body>
     <a class="skip-link" href="#main-content">Direkt zum Inhalt</a>
@@ -16,9 +16,20 @@
         <a class="brand" href="/" aria-label="geocultur.de – Startseite">
           <img src="https://geoculturde.cdn.tiekoetter.cloud/assets/images/site/logo.png" width="5000" height="2500" alt="">
         </a>
-        <details class="nav-menu">
-          <summary>Menü</summary>
-          <nav aria-label="Hauptnavigation">
+        <nav class="desktop-navigation" aria-label="Hauptnavigation">
+          <ul class="navigation">
+            <li><a href="/">Start</a></li>
+            <li><a href="/aktuelles/">Aktuelles</a></li>
+            <li><a href="/programm/" aria-current="page">Programm</a></li>
+            <li><a href="/impressum/">Impressum</a></li>
+          </ul>
+        </nav>
+        <details class="mobile-navigation">
+          <summary>
+            <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span class="visually-hidden">Menü</span>
+          </summary>
+          <nav aria-label="Mobile Hauptnavigation">
             <ul class="navigation">
               <li><a href="/">Start</a></li>
               <li><a href="/aktuelles/">Aktuelles</a></li>
