@@ -6,6 +6,7 @@ const sourceRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const repositoryRoot = process.argv[2]
   ? resolve(process.cwd(), process.argv[2])
   : sourceRoot;
+const isGeneratedSite = repositoryRoot !== sourceRoot;
 const pageFiles = [
   "index.html",
   "aktuelles/index.html",
@@ -89,6 +90,12 @@ for (const pageFile of pageFiles) {
     }
     if (!/\swidth=["']\d+["']/.test(imageTag) || !/\sheight=["']\d+["']/.test(imageTag)) {
       failures.push(`${pageFile} has an image without intrinsic dimensions.`);
+    }
+    if (
+      isGeneratedSite
+      && /\ssrc=["']https:\/\/geoculturde\.cdn\.tiekoetter\.cloud\/assets\/images\/[^"']+\.(?:jpe?g|png)["']/i.test(imageTag)
+    ) {
+      failures.push(`${pageFile} contains a visible raster image without its generated WebP URL.`);
     }
   }
 

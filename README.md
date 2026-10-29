@@ -28,6 +28,13 @@ The CDN mirrors this repository's relative file paths. A local file such as
 When moving a file used by the website, update its CDN URL to the same relative
 path.
 
+During the site build, every JPEG and PNG below `assets/images/` receives an
+optimized sibling using the original filename plus `.webp`. For example,
+`assets/images/site/Heinz.jpg` is published as both `Heinz.jpg` and
+`Heinz.jpg.webp`. Generated pages use the WebP files for visible images while
+the originals remain available for compatibility and social metadata. The
+build requires the `cwebp` command from the WebP tools package.
+
 Run `node scripts/validate-paths.mjs` after changing paths. It checks that every
 active CDN URL, page link, redirect, and in-page link has a matching target. It
 also verifies the heading, language, image, ARIA, and current-navigation basics
@@ -43,9 +50,9 @@ non-empty PDF, updates the programme link and its issue/size metadata in the
 generated site, validates the result, and deploys it. No JavaScript is added to
 the public pages and generated files are not committed back to the repository.
 
-Run the same build locally with `node scripts/build-site.mjs`. The generated
-site is written to `_site/` and can be checked with
-`node scripts/validate-paths.mjs _site`.
+Run the same build locally with `node scripts/build-site.mjs` after installing
+the WebP tools package. The generated site is written to `_site/` and can be
+checked with `node scripts/validate-paths.mjs _site`.
 
 After committing the workflow, choose **GitHub Actions** once under
 **Settings → Pages → Build and deployment → Source**. The existing custom domain

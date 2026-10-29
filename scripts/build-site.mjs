@@ -9,11 +9,18 @@ import {
 } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { convertImages } from "./convert-images.mjs";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputRoot = resolve(repositoryRoot, "_site");
 const programmeDirectory = resolve(repositoryRoot, "documents/programmes");
 const programmePattern = /^Reisen-aktuell-(\d{4})-(0[1-9]|1[0-2])\.pdf$/;
+const publicPagePaths = [
+  "index.html",
+  "aktuelles/index.html",
+  "programm/index.html",
+  "impressum/index.html",
+];
 const publicEntries = [
   ".nojekyll",
   "CNAME",
@@ -49,6 +56,13 @@ function replaceMarkedSection(content, startMarker, endMarker, replacement) {
   }
 
   return `${content.slice(0, startIndex)}${replacement}${content.slice(endIndex + endMarker.length)}`;
+}
+
+function useGeneratedWebpImages(content) {
+  return content.replace(
+    /(<img\b[^>]*\bsrc=["'])(https:\/\/geoculturde\.cdn\.tiekoetter\.cloud\/assets\/images\/[^"']+\.(?:jpe?g|png))(["'])/gi,
+    "$1$2.webp$3",
+  );
 }
 
 const programmes = readdirSync(programmeDirectory)
@@ -93,6 +107,11 @@ for (const entry of publicEntries) {
   });
 }
 
+const imageConversion = convertImages(resolve(outputRoot, "assets/images"));
+const imageReduction = Math.round(
+  (1 - imageConversion.webpBytes / imageConversion.sourceBytes) * 100,
+);
+
 const programmePagePath = resolve(outputRoot, "programm/index.html");
 const programmePage = readFileSync(programmePagePath, "utf8");
 writeFileSync(
@@ -100,6 +119,12 @@ writeFileSync(
   replaceMarkedSection(programmePage, startMarker, endMarker, programmeBlock),
 );
 
+for (const pagePath of publicPagePaths) {
+  const outputPath = resolve(outputRoot, pagePath);
+  const page = readFileSync(outputPath, "utf8");
+  writeFileSync(outputPath, useGeneratedWebpImages(page));
+}
+
 console.log(
-  `Built _site with ${currentProgramme.filename} (${issue}, ${sizeInKilobytes} KB).`,
+  `Built _site with ${currentProgramme.filename} (${issue}, ${sizeInKilobytes} KB) and ${imageConversion.count} WebP images (${imageReduction}% smaller).`,
 );
